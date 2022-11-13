@@ -1,0 +1,22 @@
+Dossier privé :
+
+Nom : Kuroki
+Prénom : Yuki
+Age : 17 ans
+Sexe : Masculin
+Nationalité : Japonaise
+Orientation sexuelle : Hétérosexuel
+Statut : Célibataire
+Métier : Étudiant
+Classe : 1ère année
+École : Académie de Kuroki
+Groupe sanguin : A
+Taille : 1m70
+Poids : 60kg
+Couleur des yeux : Bleu
+Couleur des cheveux : Noir
+
+Numéro carte bancaire : 1234 5678 9012 3456
+Numéro de téléphone : 06 12 34 56 78
+Adresse mail : Kuroki@gmail.com
+Adresse : 1 rue de la paix, 75000 Paris

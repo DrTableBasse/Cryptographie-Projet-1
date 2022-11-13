@@ -1,0 +1,2 @@
+- Pouvoir lire les clés dans le serveurX
+- Envoie du fichier 
