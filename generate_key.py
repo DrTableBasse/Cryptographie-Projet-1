@@ -1,6 +1,7 @@
 import rsa
 from cryptography.fernet import Fernet
 
+# Create a public/private key pair
 (pulic_key, private_key) = rsa.newkeys(2048)
 
 def generate_symmetric_key():

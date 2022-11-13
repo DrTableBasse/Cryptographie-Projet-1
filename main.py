@@ -15,6 +15,7 @@ from generate_key import generate_symmetric_key, generate_public_key, generate_p
 
 if __name__ == '__main__':
 
+    # Parse arguments
     parser = argparse.ArgumentParser(description='Encrypt or decrypt a file.')
     parser.add_argument('file_name', help='The file to encrypt or decrypt.')
     parser.add_argument('-e', '--encrypt', action='store_true', help='Encrypt the file.')
