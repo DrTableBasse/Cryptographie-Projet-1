@@ -15,7 +15,6 @@ def generate_public_key():
     with open('./server1/pub.key', 'wb') as key_file:
         key_file.write(pulic_key.save_pkcs1('PEM'))
 
-
 def generate_private_key():
     """Generate a private key"""
     with open('./server1/priv.key', 'wb') as key_file:
