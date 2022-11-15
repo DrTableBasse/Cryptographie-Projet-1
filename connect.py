@@ -6,6 +6,8 @@ import json
 def connect(dns, port, user, password):
 	connecting = paramiko.SSHClient()
 	connecting.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+	# Usage env variable
 	if password == "":
 		connecting.connect(dns, port, user)
 		print("no mdp")
@@ -15,23 +17,23 @@ def connect(dns, port, user, password):
 	print("connected")
 	return connecting
 
-
-def verify_folder(link, remotePath):
-	stdin, stdout, stderr = link.exec_command("cd " + remotePath)
+# Remove the error the make the remote code execution possible
+def verify_folder(link, remote_path):
+	_, stdout, _ = link.exec_command("cd " + remote_path)
 	if stdout.channel.recv_exit_status() != 0:
-		link.exec_command("mkdir " + remotePath)
-		print("create folder : " + remotePath)
+		link.exec_command("mkdir " + remote_path)
+		print("create folder : " + remote_path)
 
 
-def send_folder(link, localPath, remotePath):
+def send_folder(link, local_path, remote_path):
 	sftp = link.open_sftp()
-	for i in os.listdir(localPath):
-		if not os.path.isdir(localPath + "/" + i):
-			sftp.put(localPath + i, remotePath + i)
-			print("send file : " + remotePath + i)
+	for i in os.listdir(local_path):
+		if not os.path.isdir(local_path + "/" + i):
+			sftp.put(local_path + i, remote_path + i)
+			print("send file : " + remote_path + i)
 		else:
-			verify_folder(link, remotePath + i)
-			send_folder(link, localPath + i + "/", remotePath + i + "/")
+			verify_folder(link, remote_path + i)
+			send_folder(link, local_path + i + "/", remote_path + i + "/")
 	sftp.close()
 
 
