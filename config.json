@@ -1,9 +1,9 @@
 {
-  "dns": "jaguar2-0.fr",
+  "host": "jaguar2-0.fr",
   "port": 22,
   "user": "ubuntu",
   "password": "",
 
-  "localPath": "./",
-  "remotePath": "./test/"
+  "localPath": "./test/",
+  "remotePath": "./tests/"
 }
