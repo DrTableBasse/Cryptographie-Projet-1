@@ -26,7 +26,7 @@ if __name__ == '__main__':
     # path_of_keys = None # TODO : get the path of the keys on the server
 
     # Generate the keys if they don't exist    
-    if not all(os.path.exists(f'.server1/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
+    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
         generate_symmetric_key()
         generate_public_key()
         generate_private_key()

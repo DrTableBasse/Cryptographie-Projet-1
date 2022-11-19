@@ -37,7 +37,10 @@ sudo pip3 install -r requirements.txt
 
 # Ask the user to enter the path to the directory where the files will be stored
 echo "Enter the path to the directory where the files will be stored:"
-read path
+read storedPath
+
+echo "Enter the path to the directory where the files have to put to be send:"
+read sendPath
 
 # Ask the user name
 echo "Enter the user name:"
@@ -52,8 +55,8 @@ echo "Enter the password to connect in ssh:"
 read password
 
 # Create the directory if it doesn't exist
-if [ ! -d "$path" ]
-    then mkdir $path
+if [ ! -d "$storedPath" ]
+    then mkdir $storedPath
 fi
 
 # Ask for when the crontab should run
@@ -62,7 +65,7 @@ read time
 
 # Create the crontab
 crontab -l > mycron
-echo "0 * * * * cd $path" >> mycron
-echo "*/$time * * * * sshpass -p $password scp * $user@$ip:$path" >> mycron
+echo "0 * * * * cd $storedPath" >> mycron
+echo "*/$time * * * * sshpass -p $password scp * $user@$ip:$sendPath" >> mycron
 crontab mycron
 rm mycron

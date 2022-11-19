@@ -4,6 +4,6 @@
   "user": "ubuntu",
   "password": "",
 
-  "localPath": "./test/",
-  "remotePath": "./tests/"
+  "storedPath": "./test/",
+  "sendPath": "./tests/"
 }
