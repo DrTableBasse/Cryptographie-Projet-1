@@ -6,5 +6,6 @@
 ## Installation
 
 ```bash
-./setup.bash
+chmod +x setup.sh
+./setup.sh
 ```
