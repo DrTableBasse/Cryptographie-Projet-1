@@ -1,3 +1,2 @@
 rsa==4.9
 cryptography==38.0.3
-paramiko==2.11.0
