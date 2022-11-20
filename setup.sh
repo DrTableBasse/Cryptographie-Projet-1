@@ -39,20 +39,20 @@ sudo pip3 install -r requirements.txt
 echo "Enter the path to the directory where the files will be stored:"
 read storedPath
 
-echo "Enter the path to the directory where the files have to put to be send:"
-read sendPath
+# Ask the user to enter the ip address of the server
+echo "Enter the ip address of the server:"
+read ip
 
 # Ask the user name
 echo "Enter the user name:"
 read user
 
-# Ask the user to enter the ip address of the server
-echo "Enter the ip address of the server:"
-read ip
-
 # Ask the user to enter password to connect in ssh
 echo "Enter the password to connect in ssh:"
 read password
+
+echo "Enter the path to the directory where the files have to put to be send:"
+read sendPath
 
 # Create the directory if it doesn't exist
 if [ ! -d "$storedPath" ]
