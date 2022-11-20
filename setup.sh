@@ -59,6 +59,25 @@ if [ ! -d "$storedPath" ]
     then mkdir $storedPath
 fi
 
+# Modify the config file with the user name, the ip address and the password
+# File look like this:
+# {
+#   "host": "",
+#   "port": 22,
+#   "user": "",
+#   "password": "",
+
+#   "storedPath": "",
+#   "sendPath": ""
+# }
+
+sed -i "s/\"host\": \"\"/\"host\": \"$ip\"/g" config.json
+sed -i "s/\"user\": \"\"/\"user\": \"$user\"/g" config.json
+sed -i "s/\"password\": \"\"/\"password\": \"$password\"/g" config.json
+sed -i "s/\"storedPath\": \"\"/\"storedPath\": \"$storedPath\"/g" config.json
+sed -i "s/\"sendPath\": \"\"/\"sendPath\": \"$sendPath\"/g" config.json
+
+
 # Ask for when the crontab should run
 echo "Enter the time when the crontab should run (in minutes):"
 read time

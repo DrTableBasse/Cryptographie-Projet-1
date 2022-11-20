@@ -1,9 +1,9 @@
 {
-  "host": "jaguar2-0.fr",
+  "host": "",
   "port": 22,
-  "user": "ubuntu",
+  "user": "",
   "password": "",
 
-  "storedPath": "./test/",
-  "sendPath": "./tests/"
+  "storedPath": "",
+  "sendPath": ""
 }

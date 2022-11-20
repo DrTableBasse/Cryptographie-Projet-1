@@ -1,25 +1,26 @@
 # Connect to the server and get the public key of the server /etc/rsa_keys/pub.key
+import json
 import paramiko
 
-def connect(ip, user, password):
+def connect_server(ip, user, password, port):
     """Connect to the server"""
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(ip, username=user, password=password)
+    ssh.connect(ip, port, user, password)
     return ssh
 
-def get_public_key_server(ssh):
-    """Get the public key of the server"""
+
+def get_file(ssh, file_name, path):
+    """Get the file from the server and return the contents of it"""
     sftp = ssh.open_sftp()
-    sftp.get('/etc/rsa_keys/pub.key', 'pub.key')
-    sftp.close()
+    sftp.get(f'{path}/{file_name}', f'./{file_name}')
+    with open(file_name, 'rb') as file:
+        data = file.read()
+    return data
 
-def get_symmetric_key(ssh):
-    """Get the symmetric key"""
-    sftp = ssh.open_sftp()
-    sftp.get('/etc/rsa_keys/sym.key', 'sym.key')
-    sftp.close()
-
-
-
+def read_config_file():
+    """Read the config file"""
+    with open('config.json', 'r') as f:
+        config = json.load(f)
+    return config
 

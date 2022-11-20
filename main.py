@@ -11,6 +11,7 @@ import argparse
 
 from crypt_file import CryptFile
 from generate_key import generate_symmetric_key, generate_public_key, generate_private_key
+from connect import read_config_file
 
 
 if __name__ == '__main__':
@@ -23,7 +24,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    # path_of_keys = None # TODO : get the path of the keys on the server
+    host, port, user, pwd, stored_path, send_path = read_config_file()
+
 
     # Generate the keys if they don't exist    
     if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
@@ -31,10 +33,9 @@ if __name__ == '__main__':
         generate_public_key()
         generate_private_key()
 
-    # ip_server1 = None # TODO : get the ip of the server
-    # ip_server2 = None # TODO : get the ip of the server
+
     
-    crypt_file = CryptFile(args.file_name, "server1", "server2")
+    crypt_file = CryptFile(args.file_name, stored_path, send_path, host, user, pwd)
 
     if args.encrypt:
         crypt_file.encrypt_file()

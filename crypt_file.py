@@ -1,12 +1,13 @@
 import rsa
 from cryptography.fernet import Fernet
+from connect import connect_server, get_file
+
+from main import host, port, user, pwd, stored_path, send_path
 
 class CryptFile():
 
-    def __init__(self, file_name:str, own_ip:str, server_ip:str):
+    def __init__(self, file_name:str):
         self.file_name = file_name
-        self.own_ip = own_ip
-        self.server_ip = server_ip
         self.public_key_server = None
         self.private_key = None
         self.symmetric_key = None
@@ -15,17 +16,17 @@ class CryptFile():
     def get_private_key(self):
         """Get the private key"""
          # to change to own_ip when we have the server
-        with open(f'./{self.server_ip}/priv.key', 'rb') as key_file:
+        with open(f'/etc/rsa_keys/priv.key', 'rb') as key_file:
             self.private_key = key_file.read()
 
     def get_public_key_server(self):
         """Ask the server for his public key"""
-        with open(f'{self.server_ip}/pub.key', 'rb') as key_file:
-            self.public_key_server = key_file.read()
+        ssh = connect_server(host, user, pwd, port)
+        self.public_key_server = get_file(ssh, '/etc/rsa_keys/pub.key', stored_path)
         
     def get_symmetric_key(self):
         """Get the symmetric key"""
-        with open('./server1/sym.key', 'rb') as key_file:
+        with open('/etc/rsa_keys/sym.key', 'rb') as key_file:
             self.symmetric_key = key_file.read()
 
     def encrypt_file(self):
@@ -45,14 +46,14 @@ class CryptFile():
             file.write(encrypted_data)
 
         # Get the public key of the server that will receive the file
-        self.get_public_key_server() # TODO : get the ip of the server
+        self.get_public_key_server()
         public_key_server = rsa.PublicKey.load_pkcs1(self.public_key_server)
 
         # Encrypt the symmetric key
         encrypted_symmetric_key = rsa.encrypt(self.symmetric_key, public_key_server)
 
         # Save the encrypted symmetric key
-        with open('./server1/encrypted_symmetric_key', 'wb') as file:
+        with open('./stored_path/encrypted_symmetric_key', 'wb') as file:
             file.write(encrypted_symmetric_key)
 
     def decrypt_file(self):
@@ -63,14 +64,14 @@ class CryptFile():
         private_key = rsa.PrivateKey.load_pkcs1(self.private_key)
 
         # Get the encrypted symmetric key from the server that sent the file
-        with open(f'./server1/encrypted_symmetric_key', 'rb') as file:
-            encrypted_symmetric_key = file.read()
+        ssh = connect_server(host, user, pwd, port)
+        encrypted_symmetric_key = get_file(ssh, './stored_path/encrypted_symmetric_key', send_path)
 
         # Decrypt the symmetric key
         self.symmetric_key = rsa.decrypt(encrypted_symmetric_key, private_key)
 
         # Get the encrypted file
-        with open(f'{self.file_name}.encrypted', 'rb') as file:
+        with open(f'./stored_path/{self.file_name}.encrypted', 'rb') as file:
             encrypted_data = file.read()
 
         # Decrypt the file
