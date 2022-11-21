@@ -34,13 +34,17 @@ class CryptFile():
 
     def hash_file(self):
         """Hash the file"""
+        print("Hash file")
         with open(self.file_name, 'rb') as file:
             data_file = file.read()
         hash_file = hashlib.sha512(data_file).hexdigest()
+        print("hash_file = ", hash_file)
 
     def save_hash(self):
+        print("save hash a la fin du fichier")
         """Save the hash of the file"""
         with open(f'{self.file_name}.hash', 'ab') as file:
+            print("hash = ", self.hash_file)   
             file.write("\n",self.hash_file)
         
     def encrypt_file(self):
@@ -104,9 +108,12 @@ class CryptFile():
 
     def check_hash(self):
         #hash the file and compare with the hash in last line
+        print("check hash")
         if self.hash_file == self.last_ligne():
             print("The file is not modified")
+            print("hash_file = ", self.hash_file)
             return True 
         else:
             print("The file is modified")
+            print("hash_file = ", self.hash_file)
             return False
