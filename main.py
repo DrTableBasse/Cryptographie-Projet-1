@@ -1,14 +1,7 @@
-"""
-python main.py file1
-chiffré le file1 avec la clé publique du serveur2
-envoyer le file1 chiffré au serveur2
-
-dechiffré le file1 avec la clé privée du serveur2
-"""
-
 import os
 import argparse
 
+from box_log import log
 from crypt_file import CryptFile
 from generate_key import generate_symmetric_key, generate_public_key, generate_private_key
 
@@ -23,15 +16,12 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    
-
-
     # Generate the keys if they don't exist    
     if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
         generate_symmetric_key()
         generate_public_key()
         generate_private_key()
-
+        log("Keys generated", "Path: /etc/rsa_keys")
 
     
     crypt_file = CryptFile(args.file_name)
@@ -39,6 +29,9 @@ if __name__ == '__main__':
     if args.encrypt:
         crypt_file.save_hash()
         crypt_file.encrypt_file()
+        log("File encrypted", f"Path: {args.file_name}.encrypted")
+
     elif args.decrypt:
         crypt_file.decrypt_file()
         crypt_file.check_hash()
+        log("File decrypted", f"Path: {args.file_name}")

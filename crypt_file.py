@@ -1,7 +1,5 @@
 import rsa
 import hashlib
-import string
-import random
 from cryptography.fernet import Fernet
 from connect import connect_server, get_file
 
@@ -46,7 +44,7 @@ class CryptFile():
         """Save the hash of the file"""
         with open(f'{self.file_name}.hash', 'ab') as file:
             print("hash = ", self.hash_file())   
-            file.write("\n",self.hash_file())
+            file.write(f"\n{self.hash_file()}")
         
     def encrypt_file(self):
         """Encrypt the file"""
