@@ -1,4 +1,7 @@
 import rsa
+import hashlib
+import string
+import random
 from cryptography.fernet import Fernet
 from connect import connect_server, get_file
 
@@ -29,6 +32,17 @@ class CryptFile():
         with open('/etc/rsa_keys/sym.key', 'rb') as key_file:
             self.symmetric_key = key_file.read()
 
+    def hash_file(self):
+        """Hash the file"""
+
+        with open(self.file_name, 'rb') as file:
+            data_file = file.read()
+        hash_file = hashlib.sha512(data_file).hexdigest()
+
+        #save hash in last of file
+        with open(self.file_name, 'ab') as file:
+            file.write(hash_file.encode())
+        
     def encrypt_file(self):
         """Encrypt the file"""
 

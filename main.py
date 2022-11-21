@@ -37,6 +37,8 @@ if __name__ == '__main__':
     crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
+        crypt_file.hash_file()
         crypt_file.encrypt_file()
     elif args.decrypt:
+        crypt_file.hash_file()
         crypt_file.decrypt_file()
