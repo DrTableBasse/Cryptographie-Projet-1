@@ -8,6 +8,7 @@ fi
 
 if [ ! -d "./.as_been_installed" ]
   then echo "1" > .as_been_installed
+  mkdir /etc/rsa_keys/
 fi
 
 # Read the file to know if the script has been run before 
