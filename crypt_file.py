@@ -34,14 +34,14 @@ class CryptFile():
 
     def hash_file(self):
         """Hash the file"""
-
         with open(self.file_name, 'rb') as file:
             data_file = file.read()
         hash_file = hashlib.sha512(data_file).hexdigest()
 
-        #save hash in last of file
-        with open(self.file_name, 'ab') as file:
-            file.write(hash_file.encode())
+    def save_hash(self):
+        """Save the hash of the file"""
+        with open(f'{self.file_name}.hash', 'ab') as file:
+            file.write(self.hash_file)
         
     def encrypt_file(self):
         """Encrypt the file"""
