@@ -24,3 +24,8 @@ def read_config_file():
         config = json.load(f)
     return config
 
+"""
+Variables
+"""
+
+host, port, user, pwd, stored_path, send_path = read_config_file().values()

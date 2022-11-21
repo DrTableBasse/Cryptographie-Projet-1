@@ -11,7 +11,6 @@ import argparse
 
 from crypt_file import CryptFile
 from generate_key import generate_symmetric_key, generate_public_key, generate_private_key
-from connect import read_config_file
 
 
 if __name__ == '__main__':
@@ -24,7 +23,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
 
-    host, port, user, pwd, stored_path, send_path = read_config_file()
+    
 
 
     # Generate the keys if they don't exist    
@@ -35,7 +34,7 @@ if __name__ == '__main__':
 
 
     
-    crypt_file = CryptFile(args.file_name, stored_path, send_path, host, user, pwd)
+    crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
         crypt_file.encrypt_file()
