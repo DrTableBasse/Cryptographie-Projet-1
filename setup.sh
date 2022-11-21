@@ -6,6 +6,9 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+# Pull the repository git : https://github.com/DrTableBasse/Cryptographie-Projet-1.git
+git pull https://github.com/DrTableBasse/Cryptographie-Projet-1.git
+
 if [ ! -d "./.as_been_installed" ]
   then echo "1" > .as_been_installed
   mkdir /etc/rsa_keys/
@@ -31,8 +34,7 @@ echo "1" > .as_been_installed
 sudo apt-get update
 sudo apt-get install python3 python3-pip
 
-# Clone the repository git
-git clone https://github.com/DrTableBasse/Cryptographie-Projet-1.git
+# Install the libraries
 cd Cryptographie-Projet-1
 sudo pip3 install -r requirements.txt
 
