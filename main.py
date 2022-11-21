@@ -41,5 +41,5 @@ if __name__ == '__main__':
         crypt_file.save_hash()
         crypt_file.encrypt_file()
     elif args.decrypt:
-        crypt_file.hash_file()
         crypt_file.decrypt_file()
+        crypt_file.hash_file()
