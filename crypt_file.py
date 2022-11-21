@@ -2,7 +2,7 @@ import rsa
 from cryptography.fernet import Fernet
 from connect import connect_server, get_file
 
-from main import host, port, user, pwd, stored_path, send_path
+from connect import host, port, user, pwd, stored_path, send_path
 
 class CryptFile():
 
