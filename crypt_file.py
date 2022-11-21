@@ -41,7 +41,7 @@ class CryptFile():
     def save_hash(self):
         """Save the hash of the file"""
         with open(f'{self.file_name}.hash', 'ab') as file:
-            file.write(self.hash_file)
+            file.write("\n",self.hash_file)
         
     def encrypt_file(self):
         """Encrypt the file"""
@@ -96,5 +96,16 @@ class CryptFile():
         with open(f'decrypted_{self.file_name}', 'wb') as file:
             file.write(data_file)
 
-
+    #fonction qui hash le fichier et le vérifie avec le hash du fichier écris à la fin du fichier
+    def verify_file(self):
+        """Verify the file"""
+        with open(self.file_name, 'rb') as file:
+            data_file = file.read()
+        hash_file = hashlib.sha512(data_file).hexdigest()
+        with open(f'{self.file_name}.hash', 'rb') as file:
+            hash_file_saved = file.read()
+        if hash_file == hash_file_saved:
+            return True
+        else:
+            return False
         
