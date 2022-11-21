@@ -45,8 +45,11 @@ class CryptFile():
         print("save hash a la fin du fichier")
         """Save the hash of the file"""
         with open(f'{self.file_name}.hash', 'ab') as file:
-            print("hash = ", self.hash_file())   
-            file.write("\n",self.hash_file())
+            print("hash = ", self.hash_file())  
+            #file.write("\n")
+            #file.write(self.hash_file())
+            file.write(f"\n{self.hash_file()}")
+
         
     def encrypt_file(self):
         """Encrypt the file"""
