@@ -95,17 +95,18 @@ class CryptFile():
         # Save the decrypted file
         with open(f'decrypted_{self.file_name}', 'wb') as file:
             file.write(data_file)
-
-    #fonction qui hash le fichier et le vérifie avec le hash du fichier écris à la fin du fichier
-    def verify_file(self):
-        """Verify the file"""
+    
+    def last_ligne(self):
+        """Get the last line of the file"""
         with open(self.file_name, 'rb') as file:
             data_file = file.read()
-        hash_file = hashlib.sha512(data_file).hexdigest()
-        with open(f'{self.file_name}.hash', 'rb') as file:
-            hash_file_saved = file.read()
-        if hash_file == hash_file_saved:
-            return True
+        return data_file.splitlines()[-1]
+
+    def check_hash(self):
+        #hash the file and compare with the hash in last line
+        if self.hash_file == self.last_ligne():
+            print("The file is not modified")
+            return True 
         else:
+            print("The file is modified")
             return False
-        
