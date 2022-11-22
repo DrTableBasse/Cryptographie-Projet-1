@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
     # Generate the keys if they don't exist    
-    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
+    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.pub']):
         generate_symmetric_key()
         generate_public_key()
         generate_private_key()
@@ -27,11 +27,11 @@ if __name__ == '__main__':
     crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
-        crypt_file.save_hash()
+        # crypt_file.save_hash()
         crypt_file.encrypt_file()
         log("File encrypted", f"Path: {args.file_name}.encrypted")
 
     elif args.decrypt:
         crypt_file.decrypt_file()
-        crypt_file.check_hash()
+        # crypt_file.check_hash()
         log("File decrypted", f"Path: {args.file_name}")

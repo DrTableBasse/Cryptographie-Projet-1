@@ -35,7 +35,6 @@ sudo apt-get update
 sudo apt-get install python3 python3-pip
 
 # Install the libraries
-cd Cryptographie-Projet-1
 sudo pip3 install -r requirements.txt
 
 # Ask the user to enter the path to the directory where the files will be stored

@@ -7,7 +7,7 @@ from cryptography.fernet import Fernet
 def generate_symmetric_key():
     """Generate a symmetric key"""
     key = Fernet.generate_key()
-    with open('/etc/rsa_keys/sym.pub', 'wb') as key_file:
+    with open('/etc/rsa_keys/sym.key', 'wb') as key_file:
         key_file.write(key)
 
 def generate_public_key():
