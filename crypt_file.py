@@ -58,7 +58,7 @@ class CryptFile():
         encrypted_data = cipher.encrypt(data_file)
 
         # Save the encrypted file
-        with open(f'{self.file_name}.encrypted', 'wb') as file:
+        with open(f'{stored_path}{self.file_name}.encrypted', 'wb') as file:
             file.write(encrypted_data)
 
         # Get the public key of the server that will receive the file
