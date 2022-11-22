@@ -12,6 +12,7 @@ git pull https://github.com/DrTableBasse/Cryptographie-Projet-1.git
 if [ ! -d "./.as_been_installed" ]
   then echo "1" > .as_been_installed
   mkdir /etc/rsa_keys/
+  apt install sshpass -y
 fi
 
 # Read the file to know if the script has been run before 
@@ -78,15 +79,3 @@ sed -i "s/\"user\": \"\"/\"user\": \"$user\"/g" config.json
 sed -i "s/\"password\": \"\"/\"password\": \"$password\"/g" config.json
 sed -i "s/\"storedPath\": \"\"/\"storedPath\": \"$storedPath\"/g" config.json
 sed -i "s/\"sendPath\": \"\"/\"sendPath\": \"$sendPath\"/g" config.json
-
-
-# Ask for when the crontab should run
-echo "Enter the time when the crontab should run (in minutes):"
-read time
-
-# Create the crontab
-crontab -l > mycron
-echo "0 * * * * cd $storedPath" >> mycron
-echo "*/$time * * * * sshpass -p $password scp * $user@$ip:$sendPath" >> mycron
-crontab mycron
-rm mycron

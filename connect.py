@@ -10,10 +10,10 @@ def connect_server(ip, user, password, port):
     return ssh
 
 
-def get_file(ssh, file_name, path):
+def get_file(ssh, path, file_name):
     """Get the file from the server and return the contents of it"""
     sftp = ssh.open_sftp()
-    sftp.get(f'{path}/{file_name}', f'./{file_name}')
+    sftp.get(f'{path}/{file_name}', file_name)
     with open(file_name, 'rb') as file:
         data = file.read()
     return data
