@@ -27,11 +27,11 @@ if __name__ == '__main__':
     crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
-        # crypt_file.save_hash()
+        crypt_file.save_hash()
         crypt_file.encrypt_file()
         log("File encrypted", f"Path: {args.file_name}.encrypted")
 
     elif args.decrypt:
         crypt_file.decrypt_file()
-        # crypt_file.check_hash()
+        crypt_file.check_hash()
         log("File decrypted", f"Path: {args.file_name}")
