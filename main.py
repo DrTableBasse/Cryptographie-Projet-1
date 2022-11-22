@@ -17,7 +17,7 @@ if __name__ == '__main__':
 
 
     # Generate the keys if they don't exist    
-    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.pub']):
+    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
         generate_symmetric_key()
         generate_public_key()
         generate_private_key()
