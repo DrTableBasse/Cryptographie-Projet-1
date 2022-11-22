@@ -23,7 +23,7 @@ class CryptFile():
     def get_public_key_server(self):
         """Ask the server for his public key"""
         ssh = connect_server(host, user, pwd, port)
-        self.public_key_server = get_file(ssh, '/etc/rsa_keys/pub.key', stored_path)
+        self.public_key_server = get_file(ssh, "/etc/rsa_keys/", "pub.key")
         
     def get_symmetric_key(self):
         """Get the symmetric key"""
@@ -69,7 +69,7 @@ class CryptFile():
         encrypted_symmetric_key = rsa.encrypt(self.symmetric_key, public_key_server)
 
         # Save the encrypted symmetric key
-        with open('./stored_path/encrypted_symmetric_key', 'wb') as file:
+        with open(f'{stored_path}/encrypted_symmetric_key', 'wb') as file:
             file.write(encrypted_symmetric_key)
 
     def decrypt_file(self):
@@ -87,7 +87,7 @@ class CryptFile():
         self.symmetric_key = rsa.decrypt(encrypted_symmetric_key, private_key)
 
         # Get the encrypted file
-        with open(f'./stored_path/{self.file_name}.encrypted', 'rb') as file:
+        with open(f'{stored_path}{self.file_name}.encrypted', 'rb') as file:
             encrypted_data = file.read()
 
         # Decrypt the file

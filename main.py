@@ -4,7 +4,7 @@ import argparse
 from box_log import log
 from crypt_file import CryptFile
 from generate_key import generate_symmetric_key, generate_public_key, generate_private_key
-
+from connect import stored_path, send_path, pwd, user, port, host
 
 if __name__ == '__main__':
 
@@ -27,11 +27,12 @@ if __name__ == '__main__':
     crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
-        crypt_file.save_hash()
+        # crypt_file.save_hash()
         crypt_file.encrypt_file()
-        log("File encrypted", f"Path: {args.file_name}.encrypted")
+        log("File encrypted", f"Path: {stored_path}{args.file_name}.encrypted")
+        os.system(f"sshpass -p '{pwd}' scp {stored_path}* {user}@{host}:{send_path}")
 
     elif args.decrypt:
         crypt_file.decrypt_file()
         crypt_file.check_hash()
-        log("File decrypted", f"Path: {args.file_name}")
+        log("File decrypted", f"Path: {send_path}{args.file_name}")
