@@ -32,6 +32,7 @@ if __name__ == '__main__':
         crypt_file.encrypt_file()
         log("File encrypted", f"Path: {args.file_name}.encrypted")
         os.system(f"sshpass -p '{pwd}' scp {stored_path}* {user}@{host}:{send_path}")
+        log("File sent", f"Path: {send_path}")
 
     elif args.decrypt:
         # print("decrypt file")
