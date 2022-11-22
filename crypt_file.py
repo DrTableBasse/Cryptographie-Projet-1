@@ -32,7 +32,7 @@ class CryptFile():
 
     def hash_file(self):
         """Hash the file"""
-        print("Hash file")
+        print("Hash the file")
         with open(self.file_name, 'rb') as file:
             data_file = file.read()
         hash_file = hashlib.sha512(data_file).hexdigest()
