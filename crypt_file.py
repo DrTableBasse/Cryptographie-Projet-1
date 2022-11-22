@@ -69,7 +69,7 @@ class CryptFile():
         encrypted_symmetric_key = rsa.encrypt(self.symmetric_key, public_key_server)
 
         # Save the encrypted symmetric key
-        with open(f'{stored_path}/encrypted_symmetric_key', 'wb') as file:
+        with open(f'{stored_path}encrypted_symmetric_key', 'wb') as file:
             file.write(encrypted_symmetric_key)
 
     def decrypt_file(self):
