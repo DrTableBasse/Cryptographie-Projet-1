@@ -89,7 +89,7 @@ class CryptFile():
         self.symmetric_key = rsa.decrypt(encrypted_symmetric_key, private_key)
 
         # Get the encrypted file
-        with open(f'./{self.file_name}.encrypted', 'rb') as file:
+        with open(f'./{self.file_name}', 'rb') as file:
             encrypted_data = file.read()
 
         # Decrypt the file
