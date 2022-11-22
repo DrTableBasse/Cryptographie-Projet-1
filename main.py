@@ -13,11 +13,12 @@ if __name__ == '__main__':
     parser.add_argument('file_name', help='The file to encrypt or decrypt.')
     parser.add_argument('-e', '--encrypt', action='store_true', help='Encrypt the file.')
     parser.add_argument('-d', '--decrypt', action='store_true', help='Decrypt the file.')
+    parser.add_argument('-k', '--key', action='store_true', help='Generate the keys.')
     args = parser.parse_args()
 
 
     # Generate the keys if they don't exist    
-    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']):
+    if not all(os.path.exists(f'/etc/rsa_keys/{f_name}') for f_name in ['pub.key', 'priv.key', 'sym.key']) or args.key:
         generate_symmetric_key()
         generate_public_key()
         generate_private_key()
