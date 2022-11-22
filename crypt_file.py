@@ -42,7 +42,7 @@ class CryptFile():
     def save_hash(self):
         print("write hash")
         """Save the hash of the file"""
-        with open(self.file_name, 'ab') as file:
+        with open(self.file_name, 'a') as file:
             file.write(f"\n{self.hash_file().encode()}")
         
     def encrypt_file(self):
