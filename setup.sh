@@ -11,8 +11,13 @@ git pull https://github.com/DrTableBasse/Cryptographie-Projet-1.git
 
 
 # Read the file to know if the script has been run before 
-if [ -d "./.as_been_installed" ]
-  then echo "The script has already been run"
+if [ ! -d "./.as_been_installed" ]
+  then
+  echo "1" > .as_been_installed
+  mkdir /etc/rsa_keys/
+
+else
+  echo "The script has already been run"
 
   # Ask to overwrite the previous installation
   read -p "Do you want to overwrite the previous installation? [y/n] " -n 1 -r
@@ -24,9 +29,6 @@ if [ -d "./.as_been_installed" ]
   else
     exit
   fi
-else
-  echo "1" > .as_been_installed
-  mkdir /etc/rsa_keys/
 fi
 
 # Install python3, pip3 and all the libraries in requirements.txt

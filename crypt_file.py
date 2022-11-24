@@ -1,5 +1,4 @@
-import rsa, os
-import hashlib
+import rsa
 from cryptography.fernet import Fernet
 from connect import connect_server, get_file
 
