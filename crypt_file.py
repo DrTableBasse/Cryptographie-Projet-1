@@ -30,47 +30,6 @@ class CryptFile():
         with open('/etc/rsa_keys/sym.key', 'rb') as key_file:
             self.symmetric_key = key_file.read()
 
-    def hash_file(self):
-        """Hash the file"""
-        with open(self.file_name, 'rb') as file:
-            data_file = file.read()
-        file_hased = hashlib.sha512(data_file).hexdigest()
-        return file_hased
-
-    def save_hash(self, file_name):
-        """Save the hash of the file"""
-        with open(file_name, 'a') as file:
-            file.write(f"\n{self.hash_file().encode()}")
-
-    def last_line(self, file_name):
-        """Get the last line of the file"""
-        with open(file_name, 'r') as file:
-            data_file = file.read()
-        return data_file.splitlines()[-1]
-
-    def remove_last_line(self, file_name):
-        """Remove the hash of the file that is a the last line"""
-        with open(file_name) as file:
-            data = file.read().split('\n')
-
-        with open(file_name,'w') as file:
-            file.write("\n".join(data[:-1]))
-
-    def compare_hash(self, file_name):
-        """hash the file and compare with the hash in last line"""
-
-        old_hash = self.last_line(file_name)
-        print("\n\nOld",old_hash)
-        self.remove_last_line(file_name)
-        self.save_hash(file_name)
-        os.system(f"cat file_name")
-        new_hash = self.last_line(file_name)
-        print("\n\nNew",new_hash)
-        self.remove_last_line(file_name)
-
-        return old_hash == new_hash
-
-
     def encrypt_file(self):
         """Encrypt the file"""
 
