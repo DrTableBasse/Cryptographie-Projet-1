@@ -84,7 +84,7 @@ sed -i "s/\"password\": \"\"/\"password\": \"$password\"/g" config.json
 storedPath=${storedPath//\\/\\\\}
 storedPath=${storedPath//&/\\&}
 storedPath=${storedPath//\//\\\/}
-sed -i "s/\"storedPath\": \"\"/\"storedPath\": \"parser $storedPath\"/g" config.json
+sed -i "s/\"storedPath\": \"\"/\"storedPath\": \"$storedPath\"/g" config.json
 
 sendPath=${sendPath//\\/\\\\}
 sendPath=${sendPath//&/\\&}
