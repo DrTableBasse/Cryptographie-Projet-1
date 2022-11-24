@@ -42,7 +42,7 @@ class CryptFile():
         with open(self.file_name, 'a') as file:
             file.write(f"\n{self.hash_file().encode()}")
 
-    def last_ligne(self):
+    def last_line(self):
         """Get the last line of the file"""
         with open(self.file_name, 'rb') as file:
             data_file = file.read()
