@@ -30,14 +30,14 @@ if __name__ == '__main__':
     if args.encrypt:
         # crypt_file.save_hash()
         crypt_file.encrypt_file()
-        log("File encrypted", f"Path: {args.file_name}.encrypted")
+        log("File encrypted", f"Path: {stored_path}{args.file_name}.encrypted")
         os.system(f"sshpass -p '{pwd}' scp {stored_path}* {user}@{host}:{send_path}")
         log("File sent", f"Path: {send_path}")
 
     elif args.decrypt:
         # print("decrypt file")
         crypt_file.decrypt_file()
-        log("File decrypted", f"Path: {args.file_name}.decrypted")
+        log("File decrypted", f"Path: {stored_path}{args.file_name}.decrypted")
         # print("hash file et vérifier qu'il est le même que celui écrit à la fin du fichier")
         # crypt_file.check_hash()
         # log("File decrypted", f"Path: {args.file_name}")

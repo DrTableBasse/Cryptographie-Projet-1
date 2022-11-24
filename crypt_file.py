@@ -69,7 +69,7 @@ class CryptFile():
         encrypted_symmetric_key = rsa.encrypt(self.symmetric_key, public_key_server)
 
         # Save the encrypted symmetric key
-        with open(f'{stored_path}encrypted_symmetric_key', 'wb') as file:
+        with open('/etc/rsa_keys/encrypted_symmetric_key', 'wb') as file:
             file.write(encrypted_symmetric_key)
 
     def decrypt_file(self):
@@ -80,10 +80,8 @@ class CryptFile():
         private_key = rsa.PrivateKey.load_pkcs1(self.private_key)
 
         # Get the encrypted symmetric key from the server that sent the file
-        # ssh = connect_server(host, user, pwd, port)
-        # encrypted_symmetric_key = get_file(ssh, './stored_path/encrypted_symmetric_key', send_path)
-        with open(f'./encrypted_symmetric_key', 'rb') as file:
-            encrypted_symmetric_key = file.read()
+        ssh = connect_server(host, user, pwd, port)
+        encrypted_symmetric_key = get_file(ssh, '/etc/rsa_keys/', 'encrypted_symmetric_key')
 
         # Decrypt the symmetric key
         self.symmetric_key = rsa.decrypt(encrypted_symmetric_key, private_key)
