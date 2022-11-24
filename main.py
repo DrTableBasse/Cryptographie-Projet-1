@@ -37,7 +37,7 @@ if __name__ == '__main__':
     elif args.decrypt:
         # print("decrypt file")
         crypt_file.decrypt_file()
-        log("File decrypted", f"Path: {stored_path}{args.file_name}.decrypted")
+        log("File decrypted", f"Path: {args.file_name}.decrypted")
         # print("hash file et vérifier qu'il est le même que celui écrit à la fin du fichier")
         # crypt_file.check_hash()
         # log("File decrypted", f"Path: {args.file_name}")
