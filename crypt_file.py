@@ -32,19 +32,42 @@ class CryptFile():
 
     def hash_file(self):
         """Hash the file"""
-        print("Hash the file")
         with open(self.file_name, 'rb') as file:
             data_file = file.read()
-        hash_file = hashlib.sha512(data_file).hexdigest()
-        print("hash_file = ", hash_file)
-        return hash_file
+        file_hased = hashlib.sha512(data_file).hexdigest()
+        return file_hased
 
     def save_hash(self):
-        print("write hash")
         """Save the hash of the file"""
         with open(self.file_name, 'a') as file:
             file.write(f"\n{self.hash_file().encode()}")
-        
+
+    def last_ligne(self):
+        """Get the last line of the file"""
+        with open(self.file_name, 'rb') as file:
+            data_file = file.read()
+        return data_file.splitlines()[-1]
+
+    def remove_last_line(self):
+        """Remove the hash of the file that is a the last line"""
+        with open(self.file_name) as file:
+            data = file.read().split('\n')
+
+        with open(self.file_name,'w') as file:
+            file.write("\n".join(data[:-1]))
+
+    def compare_hash(self):
+        """hash the file and compare with the hash in last line"""
+
+        old_hash = self.last_line(self.file_name)
+        self.remove_last_line(self.file_name)
+        self.save_hash(self.file_name)
+        new_hash = self.last_line(self.file_name)
+        self.remove_last_line(self.file_name)
+
+        return old_hash == new_hash
+
+
     def encrypt_file(self):
         """Encrypt the file"""
 
@@ -98,20 +121,4 @@ class CryptFile():
         with open(f'decrypted_{self.file_name}', 'wb') as file:
             file.write(data_file)
     
-    def last_ligne(self):
-        """Get the last line of the file"""
-        with open(self.file_name, 'rb') as file:
-            data_file = file.read()
-        return data_file.splitlines()[-1]
 
-    def check_hash(self):
-        #hash the file and compare with the hash in last line
-        print("check hash")
-        if self.hash_file() == self.last_ligne():
-            print("The file is not modified")
-            print("hash_file = ", self.hash_file())
-            return True 
-        else:
-            print("The file is modified")
-            print("hash_file = ", self.hash_file())
-            return False

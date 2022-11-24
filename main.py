@@ -1,7 +1,7 @@
 import os, sys
 import argparse
 
-from box_log import log
+from box_log import log, log_error
 from crypt_file import CryptFile
 from generate_key import generate_symmetric_key, generate_public_key, generate_private_key
 from connect import stored_path, send_path, user, host
@@ -28,17 +28,16 @@ if __name__ == '__main__':
     crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
-        # crypt_file.save_hash()
+        crypt_file.save_hash()
         crypt_file.encrypt_file()
         log("File encrypted", f"Path: {stored_path}{args.file_name}.encrypted")
         os.system(f"scp {stored_path}* {user}@{host}:{send_path}")
         log("File sent", f"Path: {send_path}")
 
     elif args.decrypt:
-        # print("decrypt file")
         crypt_file.decrypt_file()
-        log("File decrypted", f"Path: {args.file_name}.decrypted")
-        # print("hash file et vérifier qu'il est le même que celui écrit à la fin du fichier")
-        # crypt_file.check_hash()
-        # log("File decrypted", f"Path: {args.file_name}")
-        # log("Hash verified", f"Hash: {crypt_file.hash_file()}")
+        if crypt_file.compare_hash():
+            log("File decrypted", f"Path: {stored_path}{args.file_name}")
+        else:
+            log_error("File not decrypted", "Hashes don't match")
+
