@@ -44,7 +44,7 @@ class CryptFile():
 
     def last_line(self):
         """Get the last line of the file"""
-        with open(self.file_name, 'rb') as file:
+        with open(self.file_name, 'r') as file:
             data_file = file.read()
         return data_file.splitlines()[-1]
 
