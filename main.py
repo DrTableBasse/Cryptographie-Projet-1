@@ -35,8 +35,9 @@ if __name__ == '__main__':
         log("File sent", f"Path: {send_path}")
 
     elif args.decrypt:
-        crypt_file.decrypt_file(f'decrypted_{args.file_name}')
-        if crypt_file.compare_hash():
+        crypt_file.decrypt_file()
+        os.system(f"cat decrypted_{args.file_name}")
+        if crypt_file.compare_hash(f'decrypted_{args.file_name}'):
             log("File decrypted", f"Path: {stored_path}{args.file_name}")
         else:
             log_error("File not decrypted", "Hashes don't match")

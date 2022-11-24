@@ -60,9 +60,11 @@ class CryptFile():
         """hash the file and compare with the hash in last line"""
 
         old_hash = self.last_line(file_name)
+        print(old_hash)
         self.remove_last_line(file_name)
         self.save_hash(file_name)
         new_hash = self.last_line(file_name)
+        print(new_hash)
         self.remove_last_line(file_name)
 
         return old_hash == new_hash
