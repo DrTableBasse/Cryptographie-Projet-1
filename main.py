@@ -28,14 +28,14 @@ if __name__ == '__main__':
     crypt_file = CryptFile(args.file_name)
 
     if args.encrypt:
-        crypt_file.save_hash()
+        crypt_file.save_hash(args.file_name)
         crypt_file.encrypt_file()
         log("File encrypted", f"Path: {stored_path}{args.file_name}.encrypted")
         os.system(f"scp {stored_path}* {user}@{host}:{send_path}")
         log("File sent", f"Path: {send_path}")
 
     elif args.decrypt:
-        crypt_file.decrypt_file()
+        crypt_file.decrypt_file(f'decrypted_{args.file_name}')
         if crypt_file.compare_hash():
             log("File decrypted", f"Path: {stored_path}{args.file_name}")
         else:

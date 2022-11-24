@@ -37,33 +37,33 @@ class CryptFile():
         file_hased = hashlib.sha512(data_file).hexdigest()
         return file_hased
 
-    def save_hash(self):
+    def save_hash(self, file_name):
         """Save the hash of the file"""
-        with open(self.file_name, 'a') as file:
+        with open(file_name, 'a') as file:
             file.write(f"\n{self.hash_file().encode()}")
 
-    def last_line(self):
+    def last_line(self, file_name):
         """Get the last line of the file"""
-        with open(self.file_name, 'r') as file:
+        with open(file_name, 'r') as file:
             data_file = file.read()
         return data_file.splitlines()[-1]
 
-    def remove_last_line(self):
+    def remove_last_line(self, file_name):
         """Remove the hash of the file that is a the last line"""
-        with open(self.file_name) as file:
+        with open(file_name) as file:
             data = file.read().split('\n')
 
-        with open(self.file_name,'w') as file:
+        with open(file_name,'w') as file:
             file.write("\n".join(data[:-1]))
 
-    def compare_hash(self):
+    def compare_hash(self, file_name):
         """hash the file and compare with the hash in last line"""
 
-        old_hash = self.last_line()
-        self.remove_last_line()
-        self.save_hash()
-        new_hash = self.last_line()
-        self.remove_last_line()
+        old_hash = self.last_line(file_name)
+        self.remove_last_line(file_name)
+        self.save_hash(file_name)
+        new_hash = self.last_line(file_name)
+        self.remove_last_line(file_name)
 
         return old_hash == new_hash
 
