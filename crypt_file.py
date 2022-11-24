@@ -1,7 +1,7 @@
 import rsa
 from cryptography.fernet import Fernet
 from connect import connect_server, get_file
-
+from log import log_error
 from connect import host, port, user, pwd, stored_path, send_path
 
 class CryptFile():
@@ -76,7 +76,11 @@ class CryptFile():
 
         # Decrypt the file
         cipher = Fernet(self.symmetric_key)
-        data_file = cipher.decrypt(encrypted_data)
+        try:
+            data_file = cipher.decrypt(encrypted_data)
+        except Fernet.InvalidToken:
+            log_error("Invalid token", "The file has been modified")
+            return
 
         # Save the decrypted file
         with open(f'decrypted_{self.file_name}', 'wb') as file:
