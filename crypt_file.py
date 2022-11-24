@@ -1,4 +1,4 @@
-import rsa
+import rsa, os
 import hashlib
 from cryptography.fernet import Fernet
 from connect import connect_server, get_file
@@ -60,11 +60,12 @@ class CryptFile():
         """hash the file and compare with the hash in last line"""
 
         old_hash = self.last_line(file_name)
-        print(old_hash)
+        print("\n\nOld",old_hash)
         self.remove_last_line(file_name)
         self.save_hash(file_name)
+        os.system(f"cat decrypted_{file_name}")
         new_hash = self.last_line(file_name)
-        print(new_hash)
+        print("\n\nNew",new_hash)
         self.remove_last_line(file_name)
 
         return old_hash == new_hash
