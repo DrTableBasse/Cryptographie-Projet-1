@@ -58,9 +58,8 @@ read password
 echo "Enter the path to the directory where the files have to put to be send:"
 read sendPath
 
-# Create the directory if it doesn't exist
 if [ ! -d "$storedPath" ]
-    then mkdir $storedPath
+    echo "The $storedPath doesn't exist"
 fi
 
 # Modify the config file with the user name, the ip address and the password
