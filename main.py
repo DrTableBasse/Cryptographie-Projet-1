@@ -34,7 +34,10 @@ if __name__ == '__main__':
         log("File sent", f"Path: {send_path}")
 
     elif args.decrypt:
-        crypt_file.decrypt_file()
-        log("File decrypted", f"Path: {stored_path}{args.file_name}")
+        if crypt_file.decrypt_file():
+            log("File decrypted", f"Path: {stored_path}{args.file_name}")
+        else:
+            log_error("Invalid token", "The file has been modified")
+        
 
 

@@ -56,6 +56,8 @@ class CryptFile():
         with open('/etc/rsa_keys/encrypted_symmetric_key', 'wb') as file:
             file.write(encrypted_symmetric_key)
 
+        return True
+
     def decrypt_file(self):
         """Decrypt the file"""
 
@@ -78,12 +80,13 @@ class CryptFile():
         cipher = Fernet(self.symmetric_key)
         try:
             data_file = cipher.decrypt(encrypted_data)
-        except Exception as e:
-            log_error("Invalid token", f"Error: {e}")
-            return
+        except Exception:
+            return False
 
         # Save the decrypted file
         with open(f'decrypted_{self.file_name}', 'wb') as file:
             file.write(data_file)
+
+        return True
     
 
