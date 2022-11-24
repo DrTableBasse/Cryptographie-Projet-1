@@ -9,28 +9,25 @@ fi
 # Pull the repository git : https://github.com/DrTableBasse/Cryptographie-Projet-1.git
 git pull https://github.com/DrTableBasse/Cryptographie-Projet-1.git
 
-if [ ! -d "./.as_been_installed" ]
-  then echo "1" > .as_been_installed
-  mkdir /etc/rsa_keys/
-fi
 
 # Read the file to know if the script has been run before 
-if [ "$(cat .as_been_installed)" -eq 1 ]
+if [ -d "./.as_been_installed" ]
   then echo "The script has already been run"
 
   # Ask to overwrite the previous installation
   read -p "Do you want to overwrite the previous installation? [y/n] " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]
-    then echo "0" > .as_been_installed
+    then echo "1" > .as_been_installed
     # Remove the value of the config file
     python3 delete_config.py
   else
     exit
   fi
+else
+  then echo "1" > .as_been_installed
+  mkdir /etc/rsa_keys/
 fi
-
-echo "1" > .as_been_installed
 
 # Install python3, pip3 and all the libraries in requirements.txt
 sudo apt-get update
