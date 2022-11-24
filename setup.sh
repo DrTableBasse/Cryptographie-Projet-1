@@ -24,6 +24,8 @@ if [ "$(cat .as_been_installed)" -eq 1 ]
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]
     then echo "0" > .as_been_installed
+    # Remove the value of the config file
+    python3 delete_config.py
   else
     exit
   fi
@@ -77,5 +79,14 @@ fi
 sed -i "s/\"host\": \"\"/\"host\": \"$ip\"/g" config.json
 sed -i "s/\"user\": \"\"/\"user\": \"$user\"/g" config.json
 sed -i "s/\"password\": \"\"/\"password\": \"$password\"/g" config.json
-sed -i "s/\"storedPath\": \"\"/\"storedPath\": \"$storedPath\"/g" config.json
+
+
+storedPath=${storedPath//\\/\\\\}
+storedPath=${storedPath//&/\\&}
+storedPath=${storedPath//\//\\\/}
+sed -i "s/\"storedPath\": \"\"/\"storedPath\": \"parser $storedPath\"/g" config.json
+
+sendPath=${sendPath//\\/\\\\}
+sendPath=${sendPath//&/\\&}
+sendPath=${sendPath//\//\\\/}
 sed -i "s/\"sendPath\": \"\"/\"sendPath\": \"$sendPath\"/g" config.json
