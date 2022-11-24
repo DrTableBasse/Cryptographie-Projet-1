@@ -25,7 +25,7 @@ if [ -d "./.as_been_installed" ]
     exit
   fi
 else
-  then echo "1" > .as_been_installed
+  echo "1" > .as_been_installed
   mkdir /etc/rsa_keys/
 fi
 
