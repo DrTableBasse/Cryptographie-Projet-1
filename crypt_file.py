@@ -78,8 +78,8 @@ class CryptFile():
         cipher = Fernet(self.symmetric_key)
         try:
             data_file = cipher.decrypt(encrypted_data)
-        except Fernet.InvalidToken:
-            log_error("Invalid token", "The file has been modified")
+        except Exception as e:
+            log_error("Invalid token", f"Error: {e}")
             return
 
         # Save the decrypted file
