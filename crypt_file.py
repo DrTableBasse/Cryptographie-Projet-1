@@ -59,11 +59,11 @@ class CryptFile():
     def compare_hash(self):
         """hash the file and compare with the hash in last line"""
 
-        old_hash = self.last_line(self.file_name)
-        self.remove_last_line(self.file_name)
-        self.save_hash(self.file_name)
-        new_hash = self.last_line(self.file_name)
-        self.remove_last_line(self.file_name)
+        old_hash = self.last_line()
+        self.remove_last_line()
+        self.save_hash()
+        new_hash = self.last_line()
+        self.remove_last_line()
 
         return old_hash == new_hash
 
