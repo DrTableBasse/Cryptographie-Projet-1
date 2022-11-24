@@ -63,7 +63,7 @@ class CryptFile():
         print("\n\nOld",old_hash)
         self.remove_last_line(file_name)
         self.save_hash(file_name)
-        os.system(f"cat decrypted_{file_name}")
+        os.system(f"cat file_name")
         new_hash = self.last_line(file_name)
         print("\n\nNew",new_hash)
         self.remove_last_line(file_name)
