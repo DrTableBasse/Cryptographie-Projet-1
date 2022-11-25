@@ -11,5 +11,4 @@ chmod +x setup.sh
 python3 main.py -h
 python3 main.py -e file
 python3 main.py -d file
-python3 main.py -k
 ```
